@@ -1,7 +1,7 @@
 services:
   vault:
-    container_name: vault
-    image: maxtwinslow1/ubuntu-vault:latest
+    container_name: vault-test
+    image: owenzhang134/vault-1.18.4-ent:latest
     volumes:
       - ./config.hcl:/vault/config/config.hcl
       - ./data:/opt/vault/data
@@ -15,10 +15,10 @@ services:
       - ./license.env
     environment:
       - VAULT_ADDR=http://127.0.0.1:8200
-      - LD_LIBRARY_PATH=/vault/client/instantclient_19_17
+      - LD_LIBRARY_PATH=/vault/client/instantclient_19_28
     command: vault server -config=/vault/config/config.hcl
   oracle:
-    container_name: oracle-xe
+    container_name: oracle-xe-test
     image: gvenzl/oracle-xe
     environment:
       - ORACLE_PASSWORD=rootpassword

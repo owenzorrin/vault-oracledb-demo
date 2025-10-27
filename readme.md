@@ -6,7 +6,7 @@ Quick setup for testing the oracle database plugin for an M series mac with Dock
 - [Colima](https://github.com/abiosoft/colima#installation) installed (`brew install colima`)
 
 # Instructions:
-- Start a colima instance: 
+- This command tells Colima to create and start a Linux VM specifically configured to use 4 GiB of RAM and to emulate the x86_64, it forces the VM to run with the Intel/AMD (x86_64) architecture, even if your Mac uses Apple Silicon (M1/M2/etc.): 
 
 `colima start --arch x86_64 --memory 4`
 - Download and unzip the vault oracle database plugin, and the oracle client

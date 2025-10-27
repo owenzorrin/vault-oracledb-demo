@@ -78,7 +78,7 @@ exit
 
 ```
 sha256sum /vault/plugin/vault-plugin-database-oracle
-vault plugin register -sha256=<SHASUM256> -version=v0.7.0 database vault-plugin-database-oracle
+vault plugin register -sha256=<SHASUM256> -version=v0.10.2 database vault-plugin-database-oracle
 vault plugin list database | grep oracle
 vault secrets enable database
 vault write database/roles/my-role \

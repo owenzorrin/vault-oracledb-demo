@@ -24,19 +24,22 @@ unzip plugin/vault-plugin-database-oracle_0.10.2_linux_amd64.zip -d plugin/
 rm plugin/vault-plugin-database-oracle_0.10.2_linux_amd64.zip
 ```
 
-- Add your vault enterprise license to a file called `license.env` in the root directory:
+- Add your vault enterprise license as a variable to a file called `license.env` in the root directory:
 
 `echo "VAULT_LICENSE=${VAULT_LICENSE}" > license.env`
-- Start the containers with docker-compose:
+- Start the containers with docker compose:
 
 `docker compose up`
-- Shell into vault:
 
-`docker exec -it vault /bin/bash`
+- Confirm both Vault and Oracle container are running:
+`docker ps`
+
+- Open another terminal session and shell into vault:
+`docker exec -it vault-1.21.0-ent vault /bin/bash`
 
 - Verify shared libraries are linked correctly by manually executing the plugin:
 ```
-export LD_LIBRARY_PATH=/vault/client/instantclient_19_17
+export LD_LIBRARY_PATH=/vault/client/instantclient_19_28
 /vault/plugin/vault-plugin-database-oracle
 ```
  - If you see the following message, the plugin was linked successfully:
@@ -57,9 +60,9 @@ vault login <ROOT_TOKEN>
 
 exit
 ```
-- Shell into the oracle-xe container and run the `create-user.sql` statement:
+- Shell into the oracle-xe-test container and run the `create-user.sql` statement:
 
-`docker exec -it oracle-xe /bin/bash`
+`docker exec -it oracle-xe-test /bin/bash`
 
 ```
 tee create_user.sql <<EOF
@@ -74,7 +77,7 @@ exit
 ```
 - Shell into the vault container and register the plugin:
 
-`docker exec -it vault /bin/bash`
+`docker exec -it vault-1.21-ent-test /bin/bash`
 
 ```
 sha256sum /vault/plugin/vault-plugin-database-oracle

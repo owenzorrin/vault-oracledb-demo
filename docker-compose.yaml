@@ -1,7 +1,7 @@
 services:
   vault:
-    container_name: vault-test
-    image: owenzhang134/vault-1.18.4-ent:latest
+    container_name: vault-1.21-ent-test
+    image: owenzhang134/vault-1.21.0-ent:latest
     volumes:
       - ./config.hcl:/vault/config/config.hcl
       - ./data:/opt/vault/data

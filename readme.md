@@ -91,7 +91,7 @@ vault write database/roles/my-role \
     max_ttl="24h"
 vault write database/config/my-oracle-database \
      plugin_name=vault-plugin-database-oracle \
-     connection_url="{{username}}/{{password}}@oracle-xe:1521/XEPDB1" \
+     connection_url="{{username}}/{{password}}@oracle-xe-test:1521/XEPDB1" \
      username="vault" \
      password="vaultpasswd" \
      allowed_roles=my-role \

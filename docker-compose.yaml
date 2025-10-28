@@ -1,7 +1,7 @@
 services:
   vault:
     container_name: vault-test
-    image: owenzhang134/vault-1.21.0-ent:latest
+    image: owenzhang134/vault-linux-amd64-1.21.0-ent:latest
     volumes:
       - ./config.hcl:/vault/config/config.hcl
       - ./data:/opt/vault/data

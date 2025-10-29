@@ -35,7 +35,7 @@ rm plugin/vault-plugin-database-oracle_0.10.2_linux_amd64.zip
 `docker ps`
 
 - Open another terminal session and shell into vault:
-`docker exec -it vault-test vault /bin/bash`
+`docker exec -it vault-test /bin/bash`
 
 - Verify shared libraries are linked correctly by manually executing the plugin:
 ```

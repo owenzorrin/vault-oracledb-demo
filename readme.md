@@ -2,14 +2,14 @@
 Quick setup for testing the oracle database plugin for an M series mac with Docker
 
 # Prerequisites
-- M series mac Docker installed Colima installed (brew install colima)
+- M series Mac Docker installed
 - [Colima](https://github.com/abiosoft/colima#installation) installed (`brew install colima`)
 
 # Instructions:
 - This command tells Colima to create and start a Linux VM specifically configured to use 4 GiB of RAM and to emulate the x86_64, it forces the VM to run with the Intel/AMD (x86_64) architecture, even if your Mac uses Apple Silicon (M1/M2/etc.): 
 
 `colima start --arch x86_64 --memory 4`
-- Download and unzip the vault oracle database plugin, and the oracle client
+- Download and unzip the vault oracle database plugin, and the Oracle Instant Client library
       - Note: Perform this step on your local mac. The unzipped binaries will be passed to the docker container as volumes.
 
 ```
@@ -31,10 +31,10 @@ rm plugin/vault-plugin-database-oracle_0.10.2_linux_amd64.zip
 
 `docker compose up`
 
-- Confirm both Vault and Oracle container are running:
+- Open another terminal session, confirm both Vault and Oracle container are running:
 `docker ps`
 
-- Open another terminal session and shell into vault:
+- Open an interactive shell session with vault container:
 `docker exec -it vault-test /bin/bash`
 
 - Verify shared libraries are linked correctly by manually executing the plugin:

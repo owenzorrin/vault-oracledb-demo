@@ -95,8 +95,50 @@ vault write database/config/my-oracle-database \
      username="vault" \
      password="vaultpasswd" \
      allowed_roles=my-role \
+     allowed_roles=static-role \
      max_connection_lifetime=60s
 ```
 - Verify the plugin is working by generating credentials:
 
 `vault read database/creds/my-role`
+
+- Shell into the oracle-xe-test container and run the create_static_role.sql.sql statement:
+
+```
+tee create_static_role.sql <<EOF
+alter session set container=XEPDB1;
+CREATE USER staticvault IDENTIFIED BY test;
+ALTER USER staticvault DEFAULT TABLESPACE USERS QUOTA UNLIMITED ON USERS;
+GRANT CREATE SESSION, RESOURCE , UNLIMITED TABLESPACE, DBA TO staticvault;
+exit;
+EOF
+sqlplus sys/rootpassword as sysdba @create_static_role.sql
+exit
+```
+
+- Shell into the vault container and create a database secret engine static role:
+
+```
+docker exec -it vault-test /bin/bash
+
+```
+```
+vault write database/static-roles/static-role \
+username="staticvault" \
+password="test" \
+db_name="my-oracle-database" \
+rotation_period=1h
+```
+
+- Verify the static role is now able to generate and rotate credentials:
+
+```
+root@cb7ea24ce149:/vault# vault read database/static-creds/static-role 
+Key                    Value
+---                    -----
+last_vault_rotation    2025-10-30T17:39:54.445992051Z
+password               M8S5O-ANzJEBE-4EbpR8
+rotation_period        1h
+ttl                    59m35s
+username               staticvault
+```
